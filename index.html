@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Damas | Clásico</title>
+    <link rel="stylesheet" href="/src/styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Juego de Damas</h1>
+    </header>
+
+    <main class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label for="starting">Primer jugador:</label>
+                <select id="starting" class="game-select">
+                    <option value="1" selected>Humano (Rojo)</option>
+                    <option value="0">Computadora (Azul)</option>
+                </select>
+            </div>
+
+            <button id="newGame" class="btn-primary">Nuevo Juego</button>
+        </div>
+
+        <div id="currentPlayer">Turno: Jugador (Rojo)</div>
+
+        <div class="game-container">
+            <div id="board"></div>
+        </div>
+
+        <div id="winnerMessage" style="display: none;">
+            <h2 id="winnerText"></h2>
+            <p>¡Fin del juego!</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Juego de Damas | Desarrollado con ❤️</p>
+    </footer>
+
+    <script type="module" src="/src/app.js"></script>
+</body>
+
+</html>

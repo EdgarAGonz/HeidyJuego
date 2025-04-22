@@ -1,0 +1,386 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #121212;
+    /* Fondo oscuro */
+    color: #e0e0e0;
+    /* Texto claro */
+    line-height: 1.6;
+}
+
+h1 {
+    color: #e0e0e0;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+h1::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #ff5252, #448aff);
+    margin: 10px auto;
+}
+
+.container {
+    background-color: #1e1e1e;
+    /* Contenedor oscuro */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.controls {
+    margin: 25px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    background-color: #2d2d2d;
+    /* Control panel oscuro */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+select,
+button {
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: 2px solid #333;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+select {
+    background-color: #333;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: #448aff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(68, 138, 255, 0.25);
+}
+
+button {
+    background: linear-gradient(135deg, #448aff, #2979ff);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 5px rgba(41, 121, 255, 0.3);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #2979ff, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(41, 121, 255, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Quitar el efecto 3D del tablero */
+.game-container {
+    perspective: none;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(8, 70px);
+    grid-template-rows: repeat(8, 70px);
+    gap: 0;
+    margin: 30px auto;
+    border: 10px solid #3e2723;
+    /* Borde más oscuro */
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    width: fit-content;
+    background: #3e2723;
+    transform: none;
+    transform-style: flat;
+}
+
+.cell {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    overflow: visible;
+}
+
+.light {
+    background-color: #d7ccc8;
+    /* Más oscuro que antes */
+}
+
+.dark {
+    background-color: #5d4037;
+    /* Más oscuro que antes */
+}
+
+.dark:hover {
+    background-color: #4e342e;
+}
+
+/* Fichas con estilo de botón con dos agujeros */
+.red,
+.blue,
+.red_king,
+.blue_king {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.2s ease;
+    /* Borde más pronunciado para simular botón */
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    /* Sombra externa para dar dimensión */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+    /* Garantizar que no haya margen o padding alterando el centrado */
+    margin: 0;
+    padding: 0;
+}
+
+/* Primer agujero en la ficha - CORRECTAMENTE CENTRADO */
+.red::before,
+.blue::before,
+.red_king::before,
+.blue_king::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    /* Centrado perfecto */
+    width: 10px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+/* Segundo agujero en la ficha - CORRECTAMENTE CENTRADO */
+.red::after,
+.blue::after,
+.red_king::after,
+.blue_king::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    /* Centrado perfecto */
+    width: 10px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.red,
+.red_king {
+    background: #ff4d4d;
+    border-color: #c41e3a;
+}
+
+.blue,
+.blue_king {
+    background: #4d79ff;
+    border-color: #0047ab;
+}
+
+/* Primer agujero en la ficha - CENTRADO */
+.red::before,
+.blue::before,
+.red_king::before,
+.blue_king::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Segundo agujero en la ficha - CENTRADO */
+.red::after,
+.blue::after,
+.red_king::after,
+.blue_king::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Coronas para reyes - estilo oro sobre rojo/azul */
+.red_king::before,
+.blue_king::before {
+    content: "♔";
+    font-size: 36px;
+    line-height: 58px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: gold;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    background: none;
+    box-shadow: none;
+    transform: none;
+    border: none;
+}
+
+/* Quitar el segundo agujero para reyes para no interferir con la corona */
+.red_king::after,
+.blue_king::after {
+    display: none;
+}
+
+/* Resaltar pieza seleccionada */
+.selected {
+    box-shadow: 0 0 0 4px #ffcc00;
+    transform: scale(1.05);
+    border-width: 3px;
+}
+
+.valid-move {
+    position: relative;
+}
+
+.valid-move::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(50, 205, 50, 0.5);
+    box-shadow: 0 0 10px 5px rgba(50, 205, 50, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(0.8);
+        opacity: 0.7;
+    }
+}
+
+#currentPlayer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: #2d2d2d;
+    /* Más oscuro */
+    display: inline-block;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid #448aff;
+    color: #e0e0e0;
+}
+
+#winnerMessage {
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #448aff, #1565c0);
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-in;
+}
+
+#winnerText {
+    margin: 0;
+    font-size: 1.8rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+footer {
+    color: #757575;
+    margin-top: 30px;
+    font-size: 0.9rem;
+}
+
+/* Manejo de tamaños para dispositivos móviles */
+@media (max-width: 768px) {
+    #board {
+        grid-template-columns: repeat(8, 45px);
+        grid-template-rows: repeat(8, 45px);
+    }
+
+    .cell {
+        width: 45px;
+        height: 45px;
+    }
+
+    .red,
+    .blue,
+    .red_king,
+    .blue_king {
+        width: 38px;
+        height: 38px;
+        border-width: 2px;
+    }
+
+    .red_king::before,
+    .blue_king::before {
+        font-size: 24px;
+        line-height: 38px;
+    }
+
+    .valid-move::after {
+        width: 20px;
+        height: 20px;
+    }
+}
